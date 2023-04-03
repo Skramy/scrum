@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="artifactory.central" />
+      <option name="name" value="artifactory.central" />
+      <option name="url" value="https://artifactory.csin.cz:443/artifactory/repo1-maven-org-maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="mavenCentral" />
+      <option name="name" value="mavenCentral" />
+      <option name="url" value="https://repo1.maven.org/maven2/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory.corporate.maven.releases" />
+      <option name="name" value="artifactory.corporate.maven.releases" />
+      <option name="url" value="https://artifactory.csin.cz:443/artifactory/corporate-maven-releases-local" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory.confluent.io.maven" />
+      <option name="name" value="artifactory.confluent.io.maven" />
+      <option name="url" value="https://artifactory.csin.cz:443/artifactory/packages-confluent-io-maven" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory.sigma.maven.releases" />
+      <option name="name" value="artifactory.sigma.maven.releases" />
+      <option name="url" value="https://artifactory.csin.cz:443/artifactory/sigma-maven-releases-local" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory.smart.maven.releases" />
+      <option name="name" value="artifactory.smart.maven.releases" />
+      <option name="url" value="https://artifactory.csin.cz:443/artifactory/smart-maven-releases-local" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://artifactory.csin.cz/artifactory/repo1-maven-org-maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="artifactory.smart.maven.snapshots" />
+      <option name="name" value="artifactory.smart.maven.snapshots" />
+      <option name="url" value="https://artifactory.csin.cz:443/artifactory/smart-maven-snapshots-local" />
+    </remote-repository>
+  </component>
+</project>
