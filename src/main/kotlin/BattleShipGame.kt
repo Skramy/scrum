@@ -53,8 +53,7 @@ class BattleShipGame {
                 myHitsBoard[x][y] = FieldValue.MISS
                 turns++
             }
-            val x2 = Random.nextInt(BOARD_SIZE)
-            val y2 = Random.nextInt(BOARD_SIZE)
+            val (x2, y2) = generateAiShot()
             if (hasHitShip(x2, y2, playerShips)) {
                 println("Enemy hits!")
                 myShipsBoard[x2][y2] = FieldValue.HIT
@@ -163,5 +162,15 @@ class BattleShipGame {
             println("${EmojiMapper.getNumber(i)}  ${myShipsBoard[i].joinToString(" ")}")
         }
         println()
+    }
+
+    private fun generateAiShot(): Pair<Int, Int> {
+        var x: Int
+        var y: Int
+        do {
+            x = Random.nextInt(BOARD_SIZE)
+            y = Random.nextInt(BOARD_SIZE)
+        } while (myHitsBoard[x][y] != FieldValue.EMPTY)
+        return x to y
     }
 }
