@@ -9,7 +9,7 @@ class BattleShipGame {
     private val enemyShips = mutableListOf<Ship>()
     private val playerShips = mutableListOf<Ship>()
     private var turns = 0
-    private val shipSizes = listOf(2)
+    private val shipTypes = listOf(ShipType.TWO)
 
 
     fun play() {
@@ -72,54 +72,26 @@ class BattleShipGame {
 
     private fun enemySetup() {
 
-        shipSizes.forEach { size ->
+        shipTypes.forEach { type ->
             var ship: Ship
             do {
                 val x = Random.nextInt(BOARD_SIZE)
                 val y = Random.nextInt(BOARD_SIZE)
                 val orientation = Random.nextInt(2)
-                ship = Ship(size)
-                if (orientation == 0) {
-                    for (i in 0 until size) {
-                        if (x + i >= BOARD_SIZE) break
-                        ship.addPosition(x + i, y)
-                    }
-                } else {
-                    for (i in 0 until size) {
-                        if (y + i >= BOARD_SIZE) break
-                        ship.addPosition(x, y + i)
-                    }
-                }
+                ship = Ship(type, Pair(x,y), ShipOrientation.getFromInt(orientation))
             } while (enemyShips.any { it.overlapsWith(ship) })
             enemyShips.add(ship)
         }
     }
 
     fun userSetup(){
-        shipSizes.forEach { size ->
+        shipTypes.forEach { type ->
             var ship: Ship
             do {
-                println("Enter coordinates for ships $size")
-                println("Enter X")
-                val x = readlnOrNull()!!.toInt()
-                println("Enter Y")
-                val y = readlnOrNull()!!.toInt()
-
-                println("Enter orientation (0 = horizontal, 1 = vertical)")
-
-                val orientation = readlnOrNull()!!.toInt()
-                ship = Ship(size)
-                if (orientation == 0) {
-                    for (i in 0 until size) {
-                        if (x + i >= BOARD_SIZE) break
-                        ship.addPosition(x + i, y)
-                    }
-                } else {
-                    for (i in 0 until size) {
-                        if (y + i >= BOARD_SIZE) break
-                        ship.addPosition(x, y + i)
-                    }
-                }
+                println("Enter coordinates for ships $type")
+                println("Enter X Y O:")
+                val input = readln().split(" ").map { it.toInt() }
+                ship = Ship(type, Pair(input[0],input[1]), ShipOrientation.getFromInt(input[2]))
             } while (playerShips.any { it.overlapsWith(ship) })
             playerShips.add(ship)
         }
