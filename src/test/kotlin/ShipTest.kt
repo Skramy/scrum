@@ -1,5 +1,4 @@
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
 class ShipTest {
@@ -47,5 +46,21 @@ class ShipTest {
         val ship = Ship(ShipType.THREE, Pair(10, 10), ShipOrientation.VERTICAL)
 
         assertThat(ship.fitsOnBoard(boardSize)).isFalse()
+    }
+
+    @Test
+    fun `Validate ships cant overlap`() {
+        val ship = Ship(ShipType.ONE, Pair(2, 2), ShipOrientation.VERTICAL)
+        val invaderShip = Ship(ShipType.TWO, Pair(2, 2), ShipOrientation.VERTICAL)
+
+        assertThat(invaderShip.overlapsWith(ship)).isTrue()
+    }
+
+    @Test
+    fun `Validate ship safeguards its zone of control`() {
+        val ship = Ship(ShipType.ONE, Pair(2, 2), ShipOrientation.VERTICAL)
+        val invaderShip = Ship(ShipType.TWO, Pair(1, 2), ShipOrientation.VERTICAL)
+
+        assertThat(invaderShip.breaksZoneOfControl(ship)).isTrue()
     }
 }

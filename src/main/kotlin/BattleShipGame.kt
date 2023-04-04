@@ -9,7 +9,7 @@ class BattleShipGame {
     private val enemyShips = mutableListOf<Ship>()
     private val playerShips = mutableListOf<Ship>()
     private var turns = 0
-    private val shipTypes = listOf(ShipType.TWO)
+    private val shipTypes = listOf(ShipType.ONE, ShipType.TWO, ShipType.THREE)
 
 
     fun play() {
@@ -78,7 +78,7 @@ class BattleShipGame {
                 val y = Random.nextInt(BOARD_SIZE)
                 val orientation = Random.nextInt(2)
                 ship = Ship(type, Pair(x,y), ShipOrientation.getFromInt(orientation))
-            } while (enemyShips.any { it.overlapsWith(ship) })
+            } while (enemyShips.any { it.hasInvalidPosition(ship) && it.fitsOnBoard(BOARD_SIZE) })
             enemyShips.add(ship)
         }
     }
@@ -95,7 +95,7 @@ class BattleShipGame {
                     continue
                 }
                 ship = Ship(type, Pair(input[0],input[1]), ShipOrientation.getFromInt(input[2]))
-            } while (ship == null || playerShips.any { it.overlapsWith(ship) && it.fitsOnBoard(BOARD_SIZE) })
+            } while (ship == null || playerShips.any { it.hasInvalidPosition(ship) && it.fitsOnBoard(BOARD_SIZE) })
             playerShips.add(ship)
         }
 
