@@ -86,13 +86,17 @@ class BattleShipGame {
 
     fun userSetup(){
         shipTypes.forEach { type ->
-            var ship: Ship
+            var ship: Ship? = null
             do {
                 println("Enter coordinates for ships $type")
                 println("Enter X Y O:")
                 val input = readln().split(" ").map { it.toInt() }
+                if (input.any { it < 0 }) {
+                    println("Invalid coordinates. Try again.")
+                    continue
+                }
                 ship = Ship(type, Pair(input[0],input[1]), ShipOrientation.getFromInt(input[2]))
-            } while (playerShips.any { it.overlapsWith(ship) })
+            } while (ship == null || playerShips.any { it.overlapsWith(ship) && it.fitsOnBoard(BOARD_SIZE) })
             playerShips.add(ship)
         }
 

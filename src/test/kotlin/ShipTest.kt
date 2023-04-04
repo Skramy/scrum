@@ -40,4 +40,12 @@ class ShipTest {
         assertThat(ship.hits.size).isEqualTo(1)
         assertThat(ship.isSunk()).isTrue()
     }
+
+    @Test
+    fun `Try to create ship out of bounds`() {
+        val boardSize = 10
+        val ship = Ship(ShipType.THREE, Pair(10, 10), ShipOrientation.VERTICAL)
+
+        assertThat(ship.fitsOnBoard(boardSize)).isFalse()
+    }
 }

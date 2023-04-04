@@ -9,12 +9,10 @@ class Ship(val type: ShipType, initialPosition: Pair<Int, Int>, initialOrientati
         val y = initialPosition.second
         if (initialOrientation == ShipOrientation.HORIZONTAL) {
             for (i in 0 until type.size) {
-                if (x + i >= BOARD_SIZE) break
                 positions.add(Pair(x + i, y))
             }
         } else {
             for (i in 0 until type.size) {
-                if (y + i >= BOARD_SIZE) break
                 positions.add(Pair(x, y + i))
             }
         }
@@ -35,5 +33,9 @@ class Ship(val type: ShipType, initialPosition: Pair<Int, Int>, initialOrientati
 
     fun overlapsWith(other: Ship): Boolean {
         return positions.any { other.positions.contains(it) }
+    }
+
+    fun fitsOnBoard(boardSize: Int): Boolean {
+        return positions.any { it.first < boardSize - 1 || it.second < boardSize - 1 }
     }
 }
