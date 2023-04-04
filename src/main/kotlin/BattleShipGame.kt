@@ -4,8 +4,8 @@ const val BOARD_SIZE = 10
 const val SHIPS_COUNT = 5
 
 class BattleShipGame {
-    private val myHitsBoard = Array(BOARD_SIZE) { Array(BOARD_SIZE) { '-' } }
-    private val myShipsBoard = Array(BOARD_SIZE) { Array(BOARD_SIZE) { '-' } }
+    private val myHitsBoard = Array(BOARD_SIZE) { Array(BOARD_SIZE) { FieldValue.EMPTY } }
+    private val myShipsBoard = Array(BOARD_SIZE) { Array(BOARD_SIZE) { FieldValue.EMPTY } }
     private val enemyShips = mutableListOf<Ship>()
     private val playerShips = mutableListOf<Ship>()
     private var turns = 0
@@ -42,7 +42,7 @@ class BattleShipGame {
             val (x, y) = getPlayerMove()
             if (hasHitShip(x, y, enemyShips)) {
                 println("Hit!")
-                myHitsBoard[x][y] = 'X'
+                myHitsBoard[x][y] = FieldValue.HIT
                 turns++
                 if (isGameOver(enemyShips)) {
                     printBoard()
@@ -51,14 +51,14 @@ class BattleShipGame {
                 }
             } else {
                 println("Miss!")
-                myHitsBoard[x][y] = 'O'
+                myHitsBoard[x][y] = FieldValue.MISS
                 turns++
             }
             val x2 = Random.nextInt(BOARD_SIZE)
             val y2 = Random.nextInt(BOARD_SIZE)
             if (hasHitShip(x2, y2, playerShips)) {
                 println("Enemy hits!")
-                myShipsBoard[x2][y2] = 'X'
+                myShipsBoard[x2][y2] = FieldValue.HIT
                 if (isGameOver(playerShips)) {
                     printBoard()
                     println("Enemy won!")
@@ -66,7 +66,7 @@ class BattleShipGame {
                 }
             } else {
                 println("Enemy miss!")
-                myShipsBoard[x2][y2] = 'O'
+                myShipsBoard[x2][y2] = FieldValue.MISS
             }
         }
     }
@@ -163,9 +163,9 @@ class BattleShipGame {
 
     private fun printBoard() {
         println()
-        println("   " + (0 until BOARD_SIZE).joinToString(" "))
+        println("   " + (0 until BOARD_SIZE).joinToString(" "){EmojiMapper.getNumber(it)})
         for (i in 0 until BOARD_SIZE) {
-            println("$i  ${myHitsBoard[i].joinToString(" ")}")
+            println("${EmojiMapper.getNumber(i)}  ${myHitsBoard[i].joinToString(" ")}")
         }
         println()
     }
@@ -173,12 +173,12 @@ class BattleShipGame {
         println()
         ships.forEach{ ship->
             ship.positions.forEach {
-                myShipsBoard[it.first][it.second] = 'L'
+                myShipsBoard[it.first][it.second] = FieldValue.SHIP
             }
         }
         println("   " + (0 until BOARD_SIZE).joinToString(" "))
         for (i in 0 until BOARD_SIZE) {
-            println("$i  ${myShipsBoard[i].joinToString(" ")}")
+            println("${EmojiMapper.getNumber(i)}  ${myShipsBoard[i].joinToString(" ")}")
         }
         println()
     }
