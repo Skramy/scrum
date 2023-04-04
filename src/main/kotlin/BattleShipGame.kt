@@ -37,7 +37,6 @@ class BattleShipGame {
         enemySetup()
         println("Welcome to Battleships game!")
         while (true) {
-            printMyBoard(playerShips)
             printBoard()
             val (x, y) = getPlayerMove()
             if (hasHitShip(x, y, enemyShips)) {
@@ -132,7 +131,7 @@ class BattleShipGame {
         var y = -1
         while (x < 0 || x >= BOARD_SIZE || y < 0 || y >= BOARD_SIZE) {
             print("Enter move (row col): ")
-            val input = readLine() ?: ""
+            val input = readlnOrNull() ?: ""
             val parts = input.split(" ")
             if (parts.size != 2) {
                 println("Invalid input, please try again.")
@@ -162,20 +161,27 @@ class BattleShipGame {
     }
 
     private fun printBoard() {
+        val spacing = "                            "
         println()
-        println("   " + (0 until BOARD_SIZE).joinToString(" "){EmojiMapper.getNumber(it)})
+        print("    " + (0 until BOARD_SIZE).joinToString(" "){EmojiMapper.getNumber(it)})
+        print(spacing)
+        print("    " + (0 until BOARD_SIZE).joinToString(" "){EmojiMapper.getNumber(it)})
+        println()
+        playerShips.forEach{ ship->
+            ship.positions.forEach {
+                myShipsBoard[it.first][it.second] = FieldValue.SHIP
+            }
+        }
         for (i in 0 until BOARD_SIZE) {
-            println("${EmojiMapper.getNumber(i)}  ${myHitsBoard[i].joinToString(" ")}")
+            print("${EmojiMapper.getNumber(i)}  ${myShipsBoard[i].joinToString(" ")}")
+            print(spacing)
+            print("${EmojiMapper.getNumber(i)}  ${myHitsBoard[i].joinToString(" ")}")
+            println()
         }
         println()
     }
     private fun printMyBoard(ships: MutableList<Ship>) {
         println()
-        ships.forEach{ ship->
-            ship.positions.forEach {
-                myShipsBoard[it.first][it.second] = FieldValue.SHIP
-            }
-        }
         println("   " + (0 until BOARD_SIZE).joinToString(" "))
         for (i in 0 until BOARD_SIZE) {
             println("${EmojiMapper.getNumber(i)}  ${myShipsBoard[i].joinToString(" ")}")
